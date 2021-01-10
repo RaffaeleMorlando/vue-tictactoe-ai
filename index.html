@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <title>Vue - TicTacToe</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+</head>
+<body>
+    
+    <div id="app">
+        <h1 v-if="result.length != 0">{{result}}</h1>
+        <h1 v-if="gamestart === false">Tic-Tac-Toe</h1>
+
+        <div v-if="gamestart === false" class="intro-game">
+            <div class="player-info">
+                <label>Player One</label>
+                <input v-model="player1.name" type="text">
+            </div>
+            <div class="player-info">
+                <label>Player Two</label>
+                <input v-model="player2.name" type="text">
+            </div>
+            <button @click="startGame">Start</button>
+        </div>
+
+        <div v-if="gamestart === true" class="game">
+            <div id="players">
+            	<div v-if="player1.turn === true" class="playerOne">{{player1.name}}</div>
+            	<div v-if="player1.turn === false"class="playerOne"></div>
+                <div v-if="player2.turn === true" class="playerTwo">{{player2.name}}</div>
+                <div v-if="player2.turn === false" class="playerTwo"></div>
+            </div>
+    
+            <div class="container">
+                <div @click="addChoice(box,index)" v-for="(box,index) in gameboard"  class="gameboard">
+                    <span v-if="gameboard[index] == 'X' || gameboard[index] == 'O'">{{box}}</span>
+                </div>
+            </div>
+
+            <div class="restar-section">
+                <button v-if="player1.choices.length >= 1 && player2.choices.length >= 1" @click="restartGame" class="restartButton">Restart</button>
+            </div>
+        </div>
+        
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
